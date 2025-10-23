@@ -1,4 +1,4 @@
-name: Simple CI
+name: Python CI
 
 on:
   push:
@@ -7,17 +7,18 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+
     steps:
     - name: Get code
       uses: actions/checkout@v3
 
-    - name: Set up Java
-      uses: actions/setup-java@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
       with:
-        java-version: '11'
+        python-version: '3.10'
 
-    - name: Build with Maven
-      run: mvn clean install
+    - name: Install dependencies
+      run: pip install -r requirements.txt
 
-    - name: Run Tests
-      run: mvn test
+    - name: Run tests
+      run: pytest
